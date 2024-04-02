@@ -1,19 +1,10 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import CityWeatherScreen from "./City";
-import HomeScreen from "./index";
+import { Stack } from "expo-router";
 
-const Stack = createStackNavigator();
-
-export default function Layout() {
+export default function RootLayout() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="city" component={CityWeatherScreen} />
-      <Stack.Screen
-        name="index"
-        component={HomeScreen}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
+    <Stack>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="cityWeather" options={{ title: "Weather" }} />
+    </Stack>
   );
 }

@@ -8,13 +8,14 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function HomeScreen() {
   const [cityName, setCityName] = useState("");
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate("city", { cityName: cityName });
+    navigation.navigate("cityWeather", { cityName: cityName });
   };
 
   return (
@@ -41,6 +42,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    background: (
+      <LinearGradient
+        colors={["#1a1a1a", "#660000"]}
+        start={[0, 0]}
+        end={[1, 0]}
+        style={StyleSheet.absoluteFill}
+      />
+    ),
   },
 
   input: {
@@ -60,23 +69,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import HomeScreen from "./HomeScreen";
-// import CityWeatherScreen from "./CityWeatherScreen";
-// import ErrorScreen from "./ErrorScreen";
-
-// const Stack = createNativeStackNavigator();
-
-// export default function App() {
-//   return (
-//     <Stack.Navigator
-//       initialRouteName="Home"
-//       screenOptions={{ headerShown: false }}
-//     >
-//       <Stack.Screen name="Home" component={HomeScreen} />
-//       <Stack.Screen name="City" component={CityWeatherScreen} />
-//       <Stack.Screen name="Error" component={ErrorScreen} />
-//     </Stack.Navigator>
-//   );
-// }
