@@ -1,11 +1,13 @@
 import { View, StyleSheet, Text } from "react-native";
 import React from "react";
 
-export default function CityWeatherScreen() {
+export default function CityWeatherScreen({ route }) {
+  const city = route.params.cityName;
+  console.log(city);
   return (
     <View style={styles.container}>
       <View style={styles.contentWraper}>
-        <Text>City Weather Page for:</Text>
+        <Text>{city}</Text>
       </View>
     </View>
   );

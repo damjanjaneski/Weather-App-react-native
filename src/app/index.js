@@ -14,7 +14,7 @@ export default function HomeScreen() {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate("city", { cityName });
+    navigation.navigate("city", { cityName: cityName });
   };
 
   return (
