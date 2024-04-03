@@ -8,7 +8,10 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
+import store, { enterCity } from "../store";
+
+store.dispatch(enterCity("Skopje"));
+console.log(store.getState());
 
 export default function HomeScreen() {
   const [cityName, setCityName] = useState("");
@@ -16,13 +19,16 @@ export default function HomeScreen() {
 
   const handlePress = () => {
     navigation.navigate("cityWeather", { cityName: cityName });
+    console.log(store.getState());
   };
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        onChangeText={(newType) => setCityName(newType)}
+        onChangeText={(value) =>
+          store.dispatch({ type: "cityName", payload: value })
+        }
         defaultValue={cityName}
         placeholder="Enter a city name"
       />
@@ -42,14 +48,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    background: (
-      <LinearGradient
-        colors={["#1a1a1a", "#660000"]}
-        start={[0, 0]}
-        end={[1, 0]}
-        style={StyleSheet.absoluteFill}
-      />
-    ),
   },
 
   input: {
