@@ -1,18 +1,41 @@
 import { View, StyleSheet, Text, FlatList } from "react-native";
-import React from "react";
-import { ScrollView } from "react-native-web";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useSelector, UseDispatch, useDispatch } from "react-redux";
+import { addForecast } from "../features/forecast";
 
 export default function CityWeatherScreen() {
+  const data = useSelector((store) => store);
+  const apiKey = "0e18b8e776458d181f4107a47925e939";
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (data.weather.name) {
+      axios
+        .get(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${data.weather.name}&appid=${apiKey}`
+        )
+        .then((response) => {
+          dispatch(addForecast(response.data.list));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [data.weather.name]);
+
+  console.log(data.forecast.properties);
+
   return (
     <View style={styles.container}>
       <View style={styles.contentWraper}>
         <View style={styles.title}>
-          <Text>City Name</Text>
+          <Text>City Name: {data.weather.name}</Text>
           <Text>Current Time</Text>
         </View>
         <View style={styles.currentTemp}>
           <Text>WeatherIMG here</Text>
-          <Text>TEMP C</Text>
+          <Text>{data.weather.properties.main?.temp} C</Text>
         </View>
         <View style={styles.dailyForcast}>
           {/* <ScrollView> */}
