@@ -10,13 +10,18 @@ import { useNavigation } from "@react-navigation/native";
 import { enterCity } from "../features/weather";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { typing } from "../features/weather";
+import { typing, reset } from "../features/weather";
+import { useEffect } from "react";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const city = useSelector((store) => store.weather);
   const apiKey = "0e18b8e776458d181f4107a47925e939";
+
+  useEffect(() => {
+    dispatch(reset(""));
+  }, []);
 
   const handlePress = () => {
     axios
