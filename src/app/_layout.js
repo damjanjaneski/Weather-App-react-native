@@ -7,7 +7,7 @@ export default function RootLayout() {
     <Provider store={store}>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="cityWeather" options={{ title: "Weather" }} />
+        <Stack.Screen name="city" options={{ title: "Weather" }} />
         <Stack.Screen name="error" options={{ title: "Error happened" }} />
       </Stack>
     </Provider>

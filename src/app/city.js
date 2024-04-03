@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text, FlatList } from "react-native";
 import React, { useEffect } from "react";
 import axios from "axios";
-import { useSelector, UseDispatch, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addForecast } from "../features/forecast";
 
 export default function CityWeatherScreen() {

@@ -25,10 +25,10 @@ export default function HomeScreen() {
       )
       .then((response) => {
         console.log(response.data);
-        navigation.navigate("cityWeather", { cityName: city.name });
+        navigation.navigate("city", { "": city.name });
         dispatch(enterCity(response.data));
       })
-      .catch((error) => {
+      .catch(() => {
         navigation.navigate("error", {});
       });
   };
