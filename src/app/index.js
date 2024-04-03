@@ -17,6 +17,11 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const city = useSelector((store) => store.weather);
+  /*Reminder: 
+  to install necessary library,  to hide the API_KEY from the code, so I could reach it with process.env.API_KEY. 
+  Regular way of access like in JS or pure react didn't work. (or maybe to try again) 
+  */
+
   const apiKey = "0e18b8e776458d181f4107a47925e939";
 
   useEffect(() => {
