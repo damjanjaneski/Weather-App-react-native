@@ -11,12 +11,12 @@ export default function HourlyWeather() {
         data={hourlyForecast}
         renderItem={(item) => {
           const weatherIcon = item.item.weather[0].icon;
-          const imgUrl = `http://openweathermap.org/img/w/${weatherIcon}.png`;
+          const imgUrl = `https://openweathermap.org/img/w/${weatherIcon}.png`;
           return (
             <View styles={styles.hourlyWraper}>
               <Text>{item.item.dt_txt.slice(11, 16)}</Text>
               <Image
-                source={imgUrl}
+                source={{ uri: `${imgUrl}` }}
                 style={{ width: 35, height: 35, alignSelf: "center" }}
               />
               <Text style={{ alignSelf: "center" }}>

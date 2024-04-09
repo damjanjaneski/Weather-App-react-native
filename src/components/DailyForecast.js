@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { addForecast } from "../features/forecast";
 import axios from "axios";
 import { View, StyleSheet, Text, FlatList, Image } from "react-native";
+import { API_KEY } from "@env";
 
 export default function DailyForecast() {
   const data = useSelector((store) => store);
-  const apiKey = "0e18b8e776458d181f4107a47925e939";
   const dispatch = useDispatch();
   const [forecastArr, setForecastArr] = useState([]);
 
@@ -14,7 +14,7 @@ export default function DailyForecast() {
     if (data.weather.name) {
       axios
         .get(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${data.weather.name}&appid=${apiKey}`
+          `https://api.openweathermap.org/data/2.5/forecast?q=${data.weather.name}&appid=${API_KEY}`
         )
         .then((response) => {
           dispatch(addForecast(response.data.list));
@@ -69,7 +69,7 @@ export default function DailyForecast() {
                 {weekDays[dayOfWeek]}
               </Text>
               <Image
-                source={imgUrl}
+                source={{ uri: `${imgUrl}` }}
                 style={{ width: 40, height: 40, alignSelf: "center" }}
               />
               <Text style={{ alignSelf: "center" }}>

@@ -12,15 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { typing, reset } from "../features/weather";
 import { useEffect } from "react";
-// import Config from "react-native-config";
+import { API_KEY } from "@env";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const city = useSelector((store) => store.weather);
-  // const apiKey = Config.API_KEY;  ---> does not work ---> value === undefined
-
-  const apiKey = "0e18b8e776458d181f4107a47925e939";
 
   useEffect(() => {
     dispatch(reset(""));
@@ -29,7 +26,7 @@ export default function HomeScreen() {
   const handlePress = () => {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${apiKey}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${API_KEY}`
       )
       .then((response) => {
         navigation.navigate("city", { "": city.name });

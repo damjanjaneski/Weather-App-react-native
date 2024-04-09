@@ -7,7 +7,7 @@ export default function CurrentWeather() {
   const cityArr = data?.weather?.properties.weather;
   const city = { ...cityArr };
   const weatherIcon = city[0]?.icon;
-  const imgUrl = `http://openweathermap.org/img/w/${weatherIcon}.png`;
+  const imgUrl = `https://openweathermap.org/img/w/${weatherIcon}.png`;
   const tempInC = Math.round(data?.weather?.properties?.main?.temp - 273);
   const feelsLike = Math.round(
     data?.weather?.properties?.main?.feels_like - 273
@@ -18,7 +18,7 @@ export default function CurrentWeather() {
     <View style={{ justifyContent: "center", alignItems: "center" }}>
       <View style={styles.currentTemp}>
         <Image
-          source={imgUrl}
+          source={{ uri: `${imgUrl}` }}
           style={{ width: 90, height: 90, alignSelf: "center" }}
         />
 
