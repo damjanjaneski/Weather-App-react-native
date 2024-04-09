@@ -4,7 +4,7 @@ const weatherReducer = function (state = initialWeather, action) {
   if (action.type === "enter") {
     return { ...state, properties: action.payload };
   } else if (action.type === "delete") {
-    return { ...state, name: "" };
+    return { ...state, name: "", properties: action.payload };
   } else if (action.type === "typing") {
     return { ...state, name: action.payload };
   } else return state;

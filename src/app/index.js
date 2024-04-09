@@ -18,7 +18,6 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const city = useSelector((store) => store.weather);
-
   // const apiKey = Config.API_KEY;  ---> does not work ---> value === undefined
 
   const apiKey = "0e18b8e776458d181f4107a47925e939";
@@ -33,7 +32,6 @@ export default function HomeScreen() {
         `https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${apiKey}`
       )
       .then((response) => {
-        console.log(response.data);
         navigation.navigate("city", { "": city.name });
         dispatch(enterCity(response.data));
       })

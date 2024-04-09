@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet } from "react-native-web";
+import { View, Text, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import moment from "moment-timezone";
 
 export default function PlaceAndTime() {
   const data = useSelector((store) => store);
-  const timeOffset = data.weather.timezone;
+  const timeOffset = data.weather.properties.timezone;
   const currentLocalTime = moment().utcOffset(timeOffset / 60);
   const formatted = currentLocalTime.format("hh:mm A");
 

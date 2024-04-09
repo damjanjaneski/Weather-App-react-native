@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
   },
 
   weeklyForcast: {
-    height: 180,
+    height: 200,
   },
 });

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   contentWraper: {
     backgroundColor: "lightblue",
     height: 550,
-    width: 300,
+    width: 320,
     marginBottom: 40,
     alignItems: "center",
     justifyContent: "center",

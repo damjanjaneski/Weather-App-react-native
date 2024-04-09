@@ -6,13 +6,13 @@ import { useNavigation } from "expo-router";
 
 export default function RootLayout() {
   const navigation = useNavigation();
-  //Reminder: Here I want to make functionality, once it is navigated back to the index screen, the typed city-name to be deleted and to be set to empty input !
   useEffect(() => {
     const unsubscribe = navigation.addListener("state", (e) => {
       console.log("Screen state changed");
     });
     return unsubscribe;
   }, [navigation]);
+
   return (
     <Provider store={store}>
       <Stack>
