@@ -1,8 +1,10 @@
-import { View, StyleSheet, Text, FlatList } from "react-native";
+import { View, StyleSheet, Text, FlatList, Image } from "react-native";
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { addForecast } from "../features/forecast";
+import PlaceAndTime from "../components/PlaceAndTime";
+import CurrentWeather from "../components/CurrentWeather";
 
 export default function CityWeatherScreen() {
   const data = useSelector((store) => store);
@@ -24,23 +26,38 @@ export default function CityWeatherScreen() {
     }
   }, [data.weather.name]);
 
-  console.log(data.forecast.properties);
+  const hourlyForecast = data.forecast.properties.slice(1, 7);
+  console.log(hourlyForecast[0]);
+  const weatherIcon = hourlyForecast[0].weather[0].icon;
+  const imgUrl = `http://openweathermap.org/img/w/${weatherIcon}.png`;
 
   return (
     <View style={styles.container}>
       <View style={styles.contentWraper}>
-        <View style={styles.title}>
-          <Text>City Name: {data.weather.name}</Text>
-          <Text>Current Time</Text>
-        </View>
-        <View style={styles.currentTemp}>
-          <Text>WeatherIMG here</Text>
-          <Text>{data.weather.properties.main?.temp} C</Text>
-        </View>
+        <PlaceAndTime />
+        <CurrentWeather />
+
         <View style={styles.dailyForcast}>
-          {/* <ScrollView> */}
-          <Text>Flatlist for each hour (horizontal)</Text>
-          {/* </ScrollView> */}
+          <FlatList
+            data={hourlyForecast}
+            renderItem={(item) => {
+              return (
+                <View styles={styles.hourlyWraper}>
+                  <Text>{item.item.dt_txt.slice(11, 16)}</Text>
+                  <Image
+                    source={imgUrl}
+                    style={{ width: 35, height: 35, alignSelf: "center" }}
+                  />
+                  <Text style={{ alignSelf: "center" }}>
+                    {Math.round(item.item.main.temp - 273)}°
+                  </Text>
+                </View>
+              );
+            }}
+            keyExtractor={(item) => item.dt}
+            horizontal={true}
+            ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
+          />
         </View>
         <View style={styles.weeklyForcast}>
           {/* <ScrollView> */}
@@ -71,22 +88,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 
-  title: {
-    height: 75,
-    alignItems: "center",
-  },
-
-  currentTemp: {
-    height: 130,
-    flexDirection: "row",
-    gap: 25,
-  },
-
   dailyForcast: {
     height: 100,
+    flexDirection: "row",
   },
 
   weeklyForcast: {
     height: 180,
+  },
+
+  hourlyWraper: {
+    justifyContent: "space-between",
   },
 });
