@@ -11,5 +11,8 @@ const forecastReducer = function (state = initialForecast, action) {
 export function addForecast(value) {
   return { type: "add", payload: value };
 }
+export function reset(value) {
+  return { type: "delete", payload: value };
+}
 
 export default forecastReducer;

@@ -1,9 +1,16 @@
 import { View, Text, FlatList, Image, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export default function HourlyWeather() {
   const data = useSelector((store) => store);
-  const hourlyForecast = data.forecast.properties.slice(1, 7);
+  const [hourlyForecast, setHourlyForecast] = useState([]);
+
+  useEffect(() => {
+    if (data?.forecast?.properties.length !== undefined) {
+      setHourlyForecast(() => data?.forecast?.properties.slice(1, 7));
+    }
+  }, [data]);
 
   return (
     <View style={styles.hourlyForcast}>

@@ -4,9 +4,7 @@ import { StyleSheet } from "react-native";
 export default function ErrorScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.subcontainer}>
-        Error while data fetching! Please try again
-      </Text>
+      <Text>Error while data fetching! Please try again</Text>
     </View>
   );
 }
@@ -18,5 +16,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  subcontainer: {},
 });

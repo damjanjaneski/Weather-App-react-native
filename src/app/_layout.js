@@ -1,18 +1,8 @@
 import { Stack } from "expo-router";
 import { Provider } from "react-redux";
 import store from "../store";
-import { useEffect } from "react";
-import { useNavigation } from "expo-router";
 
 export default function RootLayout() {
-  const navigation = useNavigation();
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("state", (e) => {
-      console.log("Screen state changed");
-    });
-    return unsubscribe;
-  }, [navigation]);
-
   return (
     <Provider store={store}>
       <Stack>

@@ -11,17 +11,15 @@ import { enterCity } from "../features/weather";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { typing, reset } from "../features/weather";
+import { reset as resetForecast } from "../features/forecast";
 import { useEffect } from "react";
 import { API_KEY } from "@env";
+import ResetReduxOnBackButton from "../features/ResetReduxOnBack";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const city = useSelector((store) => store.weather);
-
-  useEffect(() => {
-    dispatch(reset(""));
-  }, []);
 
   const handlePress = () => {
     axios
@@ -37,6 +35,11 @@ export default function HomeScreen() {
       });
   };
 
+  useEffect(() => {
+    dispatch(reset(""));
+    dispatch(resetForecast(""));
+  }, []);
+
   const handleChange = function (value) {
     if (value === " ") return;
     dispatch(typing(value));
@@ -47,7 +50,7 @@ export default function HomeScreen() {
       <TextInput
         style={styles.input}
         onChangeText={(value) => handleChange(value)}
-        defaultValue={city.name}
+        value={city.name}
         placeholder="Enter a city name"
       />
 
@@ -56,6 +59,7 @@ export default function HomeScreen() {
       </TouchableOpacity>
 
       <StatusBar style="auto" />
+      <ResetReduxOnBackButton />
     </View>
   );
 }
