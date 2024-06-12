@@ -1,19 +1,10 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
-import PlaceAndTime from "../components/PlaceAndTime";
-import CurrentWeather from "../components/CurrentWeather";
-import HourlyWeather from "../components/HourlyWeather";
-import DailyForecast from "../components/DailyForecast";
 
 export default function CityWeatherScreen() {
   return (
     <View style={styles.container}>
-      <View style={styles.contentWraper}>
-        <PlaceAndTime />
-        <CurrentWeather />
-        <HourlyWeather />
-        <DailyForecast />
-      </View>
+      <View style={styles.contentWraper}></View>
     </View>
   );
 }
