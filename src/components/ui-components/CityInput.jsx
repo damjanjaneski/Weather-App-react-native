@@ -1,7 +1,15 @@
 import { StyleSheet } from "react-native";
 import { TextInput } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import React from "react";
 
 export default function CityInput({ city, isLoading, setCity }) {
+  useFocusEffect(
+    React.useCallback(() => {
+      setCity("");
+    }, [])
+  );
+
   return (
     <TextInput
       style={styles.input}

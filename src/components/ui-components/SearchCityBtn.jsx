@@ -12,7 +12,6 @@ export default function SearchButton({ city }) {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    console.log(city);
     dispatch(enterName(city));
     dispatch(fetchWeather(city));
     dispatch(fetchForecast(city));
