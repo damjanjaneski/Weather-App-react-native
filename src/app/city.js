@@ -1,21 +1,19 @@
 import { View, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import CurrentWeather from "../components/CurrentWeather";
+import CurrentWeather from "../components/weather-components/CurrentWeather";
 import { useNavigation } from "expo-router";
-import PlaceAndTime from "../components/PlaceAndTime";
-import DailyForecast from "../components/DailyForecast";
-import WeeklyForecast from "../components/WeeklyForecast";
+import PlaceAndTime from "../components/weather-components/PlaceAndTime";
+import DailyForecast from "../components/weather-components/DailyForecast";
+import WeeklyForecast from "../components/weather-components/WeeklyForecast";
 
 export default function CityWeatherScreen() {
   const city = useSelector((state) => state);
   const navigation = useNavigation();
 
-  if (city.error) {
-    navigation.navigate("error", {});
-  }
-
-  return (
+  return city.error ? (
+    navigation.navigate("error")
+  ) : (
     <View style={styles.container}>
       <View style={styles.contentWraper}>
         <PlaceAndTime />

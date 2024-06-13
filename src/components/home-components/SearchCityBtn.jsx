@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Text, StyleSheet, Pressable } from "react-native";
 import { enterName } from "../../redux/slices/weatherSlice";
 import { useNavigation } from "@react-navigation/native";
@@ -6,8 +6,9 @@ import {
   fetchForecast,
   fetchWeather,
 } from "../../redux/asyncThunks/asyncThunks";
+import { useEffect } from "react";
 
-export default function SearchButton({ city }) {
+export default function SearchButton({ city, searched, setSearched }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -15,8 +16,13 @@ export default function SearchButton({ city }) {
     dispatch(enterName(city));
     dispatch(fetchWeather(city));
     dispatch(fetchForecast(city));
+    setSearched([...searched, city]);
     navigation.navigate("city", { city });
   };
+
+  useEffect(() => {
+    localStorage.setItem("searchedCities", JSON.stringify(searched));
+  }, [searched]);
 
   return (
     <Pressable onPress={handlePress} style={styles.btn}>
