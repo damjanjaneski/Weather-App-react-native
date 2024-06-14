@@ -6,13 +6,13 @@ import {
   fetchForecast,
   fetchWeather,
 } from "../../redux/asyncThunks/asyncThunks";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchedCity from "./SearchedCity";
 
 export default function SearchedCities() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const cities = JSON.parse(localStorage.getItem("searchedCities"));
+  const cities = useSelector((state) => state.searchedCities);
 
   const handlePress = function (e) {
     const city = e.target.innerHTML;

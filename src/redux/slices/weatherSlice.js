@@ -11,6 +11,7 @@ const cityInfo = {
   isLoading: false,
   error: "",
   description: "",
+  searchedCities: [],
 };
 
 const weatherSlice = createSlice({
@@ -20,6 +21,7 @@ const weatherSlice = createSlice({
     enterName: (state, action) => {
       state.name = action.payload;
     },
+
     reset: (state) => {
       state.name = "";
       state.temp = "";
@@ -30,6 +32,10 @@ const weatherSlice = createSlice({
       state.error = "";
       state.description = "";
       state.time = "";
+    },
+
+    editSearchedCities: (state, action) => {
+      state.searchedCities = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -64,6 +70,6 @@ const weatherSlice = createSlice({
 
 const weatherReducer = weatherSlice.reducer;
 
-const { enterName, reset } = weatherSlice.actions;
+const { enterName, reset, editSearchedCities } = weatherSlice.actions;
 
-export { weatherReducer, enterName, reset };
+export { weatherReducer, enterName, reset, editSearchedCities };

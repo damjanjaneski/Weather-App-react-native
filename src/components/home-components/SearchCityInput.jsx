@@ -16,7 +16,7 @@ export default function CityInput({ city, isLoading, setCity }) {
       onChangeText={(value) => setCity(value)}
       value={city}
       placeholder="Enter a city name"
-      editable={!isLoading}
+      readOnly={isLoading}
     />
   );
 }

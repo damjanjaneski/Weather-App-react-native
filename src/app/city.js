@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import CurrentWeather from "../components/weather-components/CurrentWeather";
 import { useNavigation } from "@react-navigation/native";
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
+
     justifyContent: "center",
     height: 100,
     backgroundColor: "#EFFBE9",
