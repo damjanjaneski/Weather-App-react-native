@@ -1,9 +1,10 @@
 import { View, Text, Image } from "react-native";
 import { useSelector } from "react-redux";
 import { StyleSheet } from "react-native";
+import { cityInfoSelector } from "../../redux/selectors/selectors";
 
 export default function CurrentWeather() {
-  const city = useSelector((state) => state);
+  const city = useSelector(cityInfoSelector);
   const imgUrl = `http://openweathermap.org/img/w/${city.icon}.png`;
   const weather = Math.round(city.temp - 273);
   const feelsLike = Math.round(city.feelsLike - 273);

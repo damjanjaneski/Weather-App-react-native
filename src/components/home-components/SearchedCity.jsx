@@ -4,7 +4,9 @@ import { StyleSheet } from "react-native-web";
 export default function SearchedCity({ city, handlePress }) {
   return (
     <Pressable onPress={(e) => handlePress(e)}>
-      <Text style={styles.cityBtn}>{`${city}`}</Text>
+      <Text style={styles.cityBtn}>{`${
+        city[0].toUpperCase() + city.slice(1, city.length).toLowerCase()
+      }`}</Text>
     </Pressable>
   );
 }

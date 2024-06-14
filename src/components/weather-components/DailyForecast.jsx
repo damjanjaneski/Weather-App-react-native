@@ -2,8 +2,8 @@ import { View, Text, FlatList, Image, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 
 export default function DailyForeast() {
-  const city = useSelector((store) => store);
-  const dailyForecast = city.forecast.slice(1, 7);
+  const forecast = useSelector((store) => store.forecast);
+  const dailyForecast = forecast.slice(1, 7);
 
   return (
     <View style={styles.hourlyForcast}>

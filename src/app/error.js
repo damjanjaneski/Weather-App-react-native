@@ -3,11 +3,10 @@ import { StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 
 export default function ErrorScreen() {
-  const city = useSelector((state) => state);
+  const name = useSelector((state) => state.name);
 
   const searchedCities = JSON.parse(localStorage.getItem("searchedCities"));
-  const index = searchedCities.indexOf(city.name);
-
+  const index = searchedCities.indexOf(name);
   searchedCities.splice(index, 1);
   localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
 

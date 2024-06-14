@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import { Text, StyleSheet, Pressable } from "react-native";
 import { enterName } from "../../redux/slices/weatherSlice";
-import { useNavigation } from "@react-navigation/native";
 import {
   fetchForecast,
   fetchWeather,
 } from "../../redux/asyncThunks/asyncThunks";
 import { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SearchButton({ city, searched, setSearched }) {
   const dispatch = useDispatch();
@@ -16,7 +16,14 @@ export default function SearchButton({ city, searched, setSearched }) {
     dispatch(enterName(city));
     dispatch(fetchWeather(city));
     dispatch(fetchForecast(city));
-    setSearched([...searched, city]);
+
+    const existingCity = searched.find(
+      (c) => c.toLowerCase() === city.toLowerCase()
+    );
+
+    if (!existingCity) {
+      setSearched([...searched, city]);
+    }
     navigation.navigate("city", { city });
   };
 

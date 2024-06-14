@@ -4,7 +4,7 @@ import CityInput from "../components/home-components/SearchCityInput";
 import SearchButton from "../components/home-components/SearchCityBtn";
 import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { reset } from "../redux/slices/weatherSlice";
 import SearchedCities from "../components/home-components/SearchedCities";
 

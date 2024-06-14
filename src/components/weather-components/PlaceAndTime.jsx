@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import moment from "moment-timezone";
+import { cityTimeSelector } from "../../redux/selectors/selectors";
 
 export default function PlaceAndTime() {
-  const city = useSelector((store) => store);
+  const city = useSelector(cityTimeSelector);
   const timeOffset = city.time;
   const currentLocalTime = moment().utcOffset(new Date() + timeOffset);
   const formatted = currentLocalTime.format("hh:mm A");

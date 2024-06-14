@@ -2,7 +2,7 @@ import { View, StyleSheet, Text, FlatList, Image } from "react-native";
 import { useSelector } from "react-redux";
 
 export default function WeeklyForecast() {
-  const city = useSelector((store) => store);
+  const forecast = useSelector((store) => store.forecast);
 
   const today = new Date();
   const year = today.getFullYear();
@@ -10,7 +10,7 @@ export default function WeeklyForecast() {
   const day = String(today.getDate()).padStart(2, "0");
   const formattedDate = `${year}-${month}-${day}`;
 
-  const forecastArr = city.forecast.filter((item) => {
+  const forecastArr = forecast.filter((item) => {
     return (
       item.dt_txt.slice(0, 10) !== formattedDate &&
       item.dt_txt.slice(11, 16) === "15:00"
