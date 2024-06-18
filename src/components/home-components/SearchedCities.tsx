@@ -1,25 +1,31 @@
-import { View, Pressable, Text } from "react-native";
+import { View } from "react-native";
 import { StyleSheet } from "react-native";
 import { enterName } from "../../redux/slices/weatherSlice";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "expo-router";
 import {
   fetchForecast,
   fetchWeather,
 } from "../../redux/asyncThunks/asyncThunks";
 import { useDispatch, useSelector } from "react-redux";
 import SearchedCity from "./SearchedCity";
+import React from "react";
+import { RootState } from "../../redux/store/store";
+import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
+import { NavigationProps } from "../../types/types";
+
 
 export default function SearchedCities() {
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-  const cities = useSelector((state) => state.searchedCities);
+  const dispatch: ThunkDispatch<RootState, undefined, UnknownAction> =
+    useDispatch();
+  const navigation = useNavigation<NavigationProps>();
+  const cities = useSelector((state: RootState) => state.searchedCities);
 
-  const handlePress = function (e) {
+  const handlePress = function (e: any): void {
     const city = e.target.innerHTML;
     dispatch(enterName(city));
     dispatch(fetchWeather(city));
     dispatch(fetchForecast(city));
-    navigation.navigate("city", { city });
+    navigation.navigate("city", { cityName: city });
   };
 
   return (

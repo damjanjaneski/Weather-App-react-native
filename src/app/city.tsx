@@ -2,14 +2,16 @@ import { View, StyleSheet } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
 import CurrentWeather from "../components/weather-components/CurrentWeather";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "expo-router";
 import PlaceAndTime from "../components/weather-components/PlaceAndTime";
 import DailyForecast from "../components/weather-components/DailyForecast";
 import WeeklyForecast from "../components/weather-components/WeeklyForecast";
+import { RootState } from "../redux/store/store";
+import { NavigationProps } from "../types/types";
 
 export default function CityWeatherScreen() {
-  const error = useSelector((state) => state.error);
-  const navigation = useNavigation();
+  const error = useSelector((state: RootState) => state.error);
+  const navigation = useNavigation<NavigationProps>();
 
   return error ? (
     navigation.navigate("error")
@@ -28,9 +30,7 @@ export default function CityWeatherScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
     alignItems: "center",
-
     justifyContent: "center",
     height: 100,
     backgroundColor: "#EFFBE9",

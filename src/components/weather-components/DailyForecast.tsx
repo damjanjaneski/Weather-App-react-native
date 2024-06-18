@@ -1,40 +1,56 @@
+import React from "react";
 import { View, Text, FlatList, Image, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 
-export default function DailyForeast() {
-  const forecast = useSelector((store) => store.forecast);
+interface RootState {
+  forecast: ForecastItem[];
+}
+
+interface ForecastItem {
+  dt: number;
+  dt_txt: string;
+  main: {
+    temp: number;
+  };
+  weather: {
+    icon: string;
+  }[];
+}
+
+const DailyForecast: React.FC = () => {
+  const forecast = useSelector((store: RootState) => store.forecast);
   const dailyForecast = forecast.slice(1, 7);
 
   return (
-    <View style={styles.hourlyForcast}>
+    <View style={styles.hourlyForecast}>
       <FlatList
-        data={dailyForecast}
-        renderItem={(item) => {
-          const weatherIcon = item?.item.weather[0]?.icon;
+        data={dailyForecast} // Ensure dailyForecast matches ForecastItem[]
+        renderItem={({ item }) => {
+          const weatherIcon = item.weather[0]?.icon;
           const imgUrl = `http://openweathermap.org/img/w/${weatherIcon}.png`;
           return (
-            <View styles={styles.hourlyWraper}>
-              <Text>{item.item.dt_txt.slice(11, 16)}</Text>
+            <View style={styles.hourlyWrapper}>
+              <Text>{item.dt_txt.slice(11, 16)}</Text>
               <Image
-                source={imgUrl}
+                source={{ uri: imgUrl }}
                 style={{ width: 35, height: 35, alignSelf: "center" }}
               />
               <Text style={{ alignSelf: "center" }}>
-                {Math.round(item?.item.main.temp - 273)}°
+                {Math.round(item.main.temp - 273)}°
               </Text>
             </View>
           );
         }}
-        keyExtractor={(item) => item?.dt.toString()}
+        keyExtractor={(item) => item.dt.toString()}
         horizontal={true}
         ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  hourlyForcast: {
+  hourlyForecast: {
     width: 290,
     height: 100,
     marginLeft: 20,
@@ -43,8 +59,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
   },
-
-  hourlyWraper: {
+  hourlyWrapper: {
     justifyContent: "space-between",
   },
 });
+
+export default DailyForecast;

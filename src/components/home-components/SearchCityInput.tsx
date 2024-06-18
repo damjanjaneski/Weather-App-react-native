@@ -1,9 +1,13 @@
-import { StyleSheet } from "react-native";
-import { TextInput } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
+import { StyleSheet, TextInput } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
-export default function CityInput({ city, isLoading, setCity }) {
+interface CityInputProps {
+  city: string;
+  setCity: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const CityInput: React.FC<CityInputProps> = ({ city, setCity }) => {
   useFocusEffect(
     React.useCallback(() => {
       setCity("");
@@ -16,10 +20,10 @@ export default function CityInput({ city, isLoading, setCity }) {
       onChangeText={(value) => setCity(value)}
       value={city}
       placeholder="Enter a city name"
-      readOnly={isLoading}
+      editable={true}
     />
   );
-}
+};
 
 const styles = StyleSheet.create({
   input: {
@@ -31,3 +35,5 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 });
+
+export default CityInput;

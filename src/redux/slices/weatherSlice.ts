@@ -1,7 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchForecast, fetchWeather } from "../asyncThunks/asyncThunks";
 
-const cityInfo = {
+interface CityInfo {
+  name: string;
+  temp: string;
+  time: string;
+  feelsLike: string;
+  icon: string;
+  forecast: string[];
+  isLoading: boolean;
+  error: string | undefined;
+  description: string;
+  searchedCities: string[];
+}
+
+const initialState: CityInfo = {
   name: "",
   temp: "",
   time: "",
@@ -16,25 +29,25 @@ const cityInfo = {
 
 const weatherSlice = createSlice({
   name: "weather",
-  initialState: cityInfo,
+  initialState,
   reducers: {
-    enterName: (state, action) => {
+    enterName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
 
     reset: (state) => {
-      state.name = "";
-      state.temp = "";
-      state.feelsLike = "";
-      state.icon = "";
-      state.forecast = [];
-      state.isLoading = false;
-      state.error = "";
-      state.description = "";
-      state.time = "";
+      (state.name = ""),
+        (state.temp = ""),
+        (state.time = ""),
+        (state.feelsLike = ""),
+        (state.icon = ""),
+        (state.forecast = []),
+        (state.isLoading = false),
+        (state.error = ""),
+        (state.description = "");
     },
 
-    editSearchedCities: (state, action) => {
+    editSearchedCities: (state, action: PayloadAction<string[]>) => {
       state.searchedCities = action.payload;
     },
   },

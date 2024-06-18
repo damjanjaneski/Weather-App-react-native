@@ -14,7 +14,7 @@ const cityTimeSelector = createSelector(
   })
 );
 
-// same here, defining 4 different variables and destructure these from the state in the suitable component, will ommit creating this file
+// same here, defining 4 different variables and destructure wanted properties from the state in the suitable component, will omit creating this file
 
 const cityInfoSelector = createSelector(
   (state) => state,

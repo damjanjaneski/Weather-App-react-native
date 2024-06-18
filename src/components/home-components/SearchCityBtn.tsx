@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Text, StyleSheet, Pressable } from "react-native";
 import { enterName } from "../../redux/slices/weatherSlice";
 import {
@@ -6,19 +7,29 @@ import {
   fetchWeather,
 } from "../../redux/asyncThunks/asyncThunks";
 import { useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "expo-router";
 import { editSearchedCities } from "../../redux/slices/weatherSlice";
+import { RootState } from "../../redux/store/store";
+import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
+import { NavigationProps } from "../../types/types";
 
-export default function SearchButton({ city }) {
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-  const searchedCities = useSelector((state) => state.searchedCities);
+interface Info {
+  city: string;
+}
+
+const SearchButton: React.FC<Info> = ({ city }) => {
+  const dispatch: ThunkDispatch<RootState, undefined, UnknownAction> =
+    useDispatch();
+  const navigation = useNavigation<NavigationProps>();
+  const searchedCities = useSelector(
+    (state: RootState) => state.searchedCities
+  );
 
   const handlePress = () => {
+    if (city === "") return;
     dispatch(enterName(city));
     dispatch(fetchWeather(city));
     dispatch(fetchForecast(city));
-
     const existingCity = searchedCities.find(
       (c) => c.toLowerCase() === city.toLowerCase()
     );
@@ -27,7 +38,7 @@ export default function SearchButton({ city }) {
       dispatch(editSearchedCities([...searchedCities, city]));
     }
 
-    navigation.navigate("city", { city });
+    navigation.navigate("city", { cityName: city });
   };
 
   useEffect(() => {
@@ -39,7 +50,7 @@ export default function SearchButton({ city }) {
       <Text style={{ color: "white" }}>Search</Text>
     </Pressable>
   );
-}
+};
 
 const styles = StyleSheet.create({
   btn: {
@@ -51,3 +62,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default SearchButton;

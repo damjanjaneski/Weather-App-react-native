@@ -1,8 +1,9 @@
 import { Stack } from "expo-router";
 import { Provider } from "react-redux";
 import store from "../redux/store/store";
+import React from "react";
 
-export default function RootLayout() {
+const RootLayout: React.FC = () => {
   return (
     <Provider store={store}>
       <Stack>
@@ -12,4 +13,6 @@ export default function RootLayout() {
       </Stack>
     </Provider>
   );
-}
+};
+
+export default RootLayout;

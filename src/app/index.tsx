@@ -1,14 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import CityInput from "../components/home-components/SearchCityInput";
 import SearchButton from "../components/home-components/SearchCityBtn";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { reset } from "../redux/slices/weatherSlice";
 import SearchedCities from "../components/home-components/SearchedCities";
+import CityInput from "../components/home-components/SearchCityInput";
 
-export default function HomeScreen() {
+const HomeScreen: React.FC = () => {
   const [city, setCity] = useState("");
   const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ export default function HomeScreen() {
       <StatusBar style="auto" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -36,3 +36,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default HomeScreen;
