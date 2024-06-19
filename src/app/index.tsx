@@ -7,10 +7,14 @@ import { useDispatch } from "react-redux";
 import { reset } from "../redux/slices/weatherSlice";
 import SearchedCities from "../components/home-components/SearchedCities";
 import CityInput from "../components/home-components/SearchCityInput";
+import Loader from "../components/home-components/Loader";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store/store";
 
 const HomeScreen: React.FC = () => {
   const [city, setCity] = useState("");
   const dispatch = useDispatch();
+  const isLoading = useSelector((state: RootState) => state.isLoading);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -20,8 +24,12 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <CityInput city={city} setCity={setCity} />
-      <SearchButton city={city} />
+      <CityInput city={city} setCity={setCity} isLoading={isLoading} />
+      {isLoading ? (
+        <Loader isLoading={isLoading} />
+      ) : (
+        <SearchButton city={city} />
+      )}
       <SearchedCities />
       <StatusBar style="auto" />
     </View>

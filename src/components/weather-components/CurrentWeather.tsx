@@ -5,7 +5,7 @@ import { cityInfoSelector } from "../../redux/selectors/selectors";
 import React from "react";
 import { RootState } from "../../redux/store/store";
 
-export default function CurrentWeather() {
+const CurrentWeather: React.FC = () => {
   const city = useSelector<RootState, CityInfo>(cityInfoSelector);
   const imgUrl = `http://openweathermap.org/img/w/${city.icon}.png`;
   const weather = Math.round(city.temp - 273);
@@ -35,7 +35,7 @@ export default function CurrentWeather() {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   degrees: {
@@ -50,3 +50,5 @@ const styles = StyleSheet.create({
     gap: 10,
   },
 });
+
+export default CurrentWeather;

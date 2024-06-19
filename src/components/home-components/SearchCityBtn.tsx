@@ -12,6 +12,7 @@ import { editSearchedCities } from "../../redux/slices/weatherSlice";
 import { RootState } from "../../redux/store/store";
 import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { NavigationProps } from "../../types/types";
+import { nameAndSearchedCities } from "../../redux/selectors/selectors";
 
 interface Info {
   city: string;
@@ -21,9 +22,7 @@ const SearchButton: React.FC<Info> = ({ city }) => {
   const dispatch: ThunkDispatch<RootState, undefined, UnknownAction> =
     useDispatch();
   const navigation = useNavigation<NavigationProps>();
-  const searchedCities = useSelector(
-    (state: RootState) => state.searchedCities
-  );
+  const { name, searchedCities } = useSelector(nameAndSearchedCities);
 
   const handlePress = () => {
     if (city === "") return;
@@ -31,15 +30,19 @@ const SearchButton: React.FC<Info> = ({ city }) => {
     dispatch(fetchWeather(city));
     dispatch(fetchForecast(city));
     const existingCity = searchedCities.find(
-      (c) => c.toLowerCase() === city.toLowerCase()
+      (c: string) => c.toLowerCase() === city.toLowerCase()
     );
 
     if (!existingCity) {
       dispatch(editSearchedCities([...searchedCities, city]));
     }
-
-    navigation.navigate("city", { cityName: city });
   };
+
+  useEffect(() => {
+    if (name) {
+      navigation.navigate("city", { cityName: city });
+    }
+  }, [name]);
 
   useEffect(() => {
     localStorage.setItem("searchedCities", JSON.stringify(searchedCities));

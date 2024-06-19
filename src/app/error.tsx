@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { editSearchedCities } from "../redux/slices/weatherSlice";
 import { RootState } from "../redux/store/store";
+import React from "react";
 
-export default function ErrorScreen() {
+const ErrorScreen: React.FC = () => {
   const dispatch = useDispatch();
   const name = useSelector((state: RootState) => state.name);
   const searchedCities = useSelector(
@@ -26,7 +27,7 @@ export default function ErrorScreen() {
       </View>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -36,3 +37,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default ErrorScreen;

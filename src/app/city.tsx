@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import CurrentWeather from "../components/weather-components/CurrentWeather";
 import { useNavigation } from "expo-router";
@@ -9,13 +9,17 @@ import WeeklyForecast from "../components/weather-components/WeeklyForecast";
 import { RootState } from "../redux/store/store";
 import { NavigationProps } from "../types/types";
 
-export default function CityWeatherScreen() {
+const CityWeatherScreen: React.FC = () => {
   const error = useSelector((state: RootState) => state.error);
   const navigation = useNavigation<NavigationProps>();
 
-  return error ? (
-    navigation.navigate("error")
-  ) : (
+  useEffect((): void => {
+    if (error) {
+      navigation.navigate("error");
+    }
+  }, []);
+
+  return error ? null : (
     <View style={styles.container}>
       <View style={styles.contentWraper}>
         <PlaceAndTime />
@@ -25,7 +29,7 @@ export default function CityWeatherScreen() {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -45,3 +49,5 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 });
+
+export default CityWeatherScreen;

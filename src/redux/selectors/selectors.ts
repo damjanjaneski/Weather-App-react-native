@@ -26,4 +26,12 @@ const cityInfoSelector = createSelector(
   })
 );
 
-export { cityTimeSelector, cityInfoSelector };
+const nameAndSearchedCities = createSelector(
+  (state) => state,
+  (city) => ({
+    name: city.name,
+    searchedCities: city.searchedCities,
+  })
+);
+
+export { cityTimeSelector, cityInfoSelector, nameAndSearchedCities };

@@ -5,9 +5,10 @@ import { useFocusEffect } from "@react-navigation/native";
 interface CityInputProps {
   city: string;
   setCity: React.Dispatch<React.SetStateAction<string>>;
+  isLoading: boolean;
 }
 
-const CityInput: React.FC<CityInputProps> = ({ city, setCity }) => {
+const CityInput: React.FC<CityInputProps> = ({ city, setCity, isLoading }) => {
   useFocusEffect(
     React.useCallback(() => {
       setCity("");
@@ -20,7 +21,7 @@ const CityInput: React.FC<CityInputProps> = ({ city, setCity }) => {
       onChangeText={(value) => setCity(value)}
       value={city}
       placeholder="Enter a city name"
-      editable={true}
+      readOnly={isLoading}
     />
   );
 };
