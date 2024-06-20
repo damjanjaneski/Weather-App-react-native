@@ -12,7 +12,7 @@ interface WeatherData {
 const fetchWeather = createAsyncThunk<WeatherData, string>(
   "weather/fetchWeather",
   async (city: string) => {
-    const res = await axios.get<any>(
+    const res = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=0e18b8e776458d181f4107a47925e939`
     );
 
