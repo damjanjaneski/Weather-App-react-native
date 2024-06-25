@@ -12,7 +12,13 @@
     "jsx": "react-native",
     "module": "commonjs",
     "moduleResolution": "node10",
-    "types": ["react", "redux", "react-redux", "@reduxjs/toolkit"],
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "react",
+      "redux",
+      "react-redux",
+      "@reduxjs/toolkit"
+    ],
     "resolveJsonModule": true,
     "allowJs": true,
     "outDir": "./dist",
@@ -23,6 +29,9 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "exclude": ["node_modules", "babel.config.js"],
+  "exclude": [
+    "node_modules",
+    "babel.config.js"
+  ],
   "extends": "expo/tsconfig.base"
 }

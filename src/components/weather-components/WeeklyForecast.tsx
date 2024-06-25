@@ -3,17 +3,24 @@ import { View, StyleSheet, Text, FlatList, Image } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
 import { ForecastItem } from "../../types/types";
+import dayjs from "dayjs";
+
+const weekDays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 const WeeklyForecast: React.FC = () => {
   const forecast = useSelector((store: RootState) => {
     return store.forecast as unknown as ForecastItem[];
   });
 
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-  const formattedDate = `${year}-${month}-${day}`;
+  const formattedDate = dayjs(new Date()).format("YYYY-MM-DD");
 
   const forecastArr = forecast.filter((item) => {
     return (
@@ -21,16 +28,6 @@ const WeeklyForecast: React.FC = () => {
       item.dt_txt.slice(11, 16) === "15:00"
     );
   });
-
-  const weekDays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
 
   const convertToC = (tempInK: number) => {
     return Math.round(tempInK - 273.15); // Conversion from Kelvin to Celsius
@@ -76,6 +73,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   weeklyForecast: {
+    marginTop: 15,
     height: 200,
   },
 });
